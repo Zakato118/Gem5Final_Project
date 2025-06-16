@@ -1,41 +1,46 @@
-This is the gem5 simulator.
+專案說明：GEM5 + NVMain 作業實作
+這是基於 gem5 模擬器 與 NVMain 記憶體模組所完成的一系列記憶體與快取政策測試作業。
+透過 gem5 的架構模擬，實作與測試不同 cache 組態、替換政策以及寫入政策對系統效能的影響。
 
-The main website can be found at http://www.gem5.org
+本專案內容：
+Q1. GEM5 + NVMain Build-Up (40%)
+將 NVMain 模組整合至 gem5，完成模擬環境建置與編譯。
 
-A good starting point is http://www.gem5.org/Introduction, and for
-more information about building the simulator and getting started
-please see http://www.gem5.org/Documentation and
-http://www.gem5.org/Tutorials.
+Q2. Enable L3 Last Level Cache in GEM5 + NVMain (15%)
+啟用 L3 cache 模組，驗證 log 檔內出現 L3 cache 的資訊確認是否正確啟用。
 
-To build gem5, you will need the following software: g++ or clang,
-Python (gem5 links in the Python interpreter), SCons, SWIG, zlib, m4,
-and lastly protobuf if you want trace capture and playback
-support. Please see http://www.gem5.org/Dependencies for more details
-concerning the minimum versions of the aforementioned tools.
+Q3. Config Last Level Cache Associativity (15%)
+將 L3 cache 配置為：
 
-Once you have all dependencies resolved, type 'scons
-build/<ARCH>/gem5.opt' where ARCH is one of ALPHA, ARM, NULL, MIPS,
-POWER, SPARC, or X86. This will build an optimized version of the gem5
-binary (gem5.opt) for the the specified architecture. See
-http://www.gem5.org/Build_System for more details and options.
+2-way associative
 
-With the simulator built, have a look at
-http://www.gem5.org/Running_gem5 for more information on how to use
-gem5.
+fully associative
 
-The basic source release includes these subdirectories:
-   - configs: example simulation configuration scripts
-   - ext: less-common external packages needed to build gem5
-   - src: source code of the gem5 simulator
-   - system: source for some optional system software for simulated systems
-   - tests: regression tests
-   - util: useful utility programs and files
+執行 benchmark quicksort，透過 L3 cache 的 miss rate 數據來驗證組態生效與效能差異。
 
-To run full-system simulations, you will need compiled system firmware
-(console and PALcode for Alpha), kernel binaries and one or more disk
-images. Please see the gem5 download page for these items at
-http://www.gem5.org/Download
+Q4. Implement Frequency-Based Replacement Policy (15%)
+修改 L3 cache 的替換策略為頻率型替換演算法（frequency-based replacement policy）。
 
-If you have questions, please send mail to gem5-users@gem5.org
+紀錄與分析效能變化。
 
-Enjoy using gem5 and please share your modifications and extensions.
+Q5. Write Back vs. Write Through Policy Performance Test (15%)
+基於 4-way associative cache 搭配 isscc_pcm 記憶體模組：
+
+測試 write back（gem5 預設）
+
+測試 write through
+
+執行 benchmark multiply，並透過 write request 數量檢驗兩種寫入策略是否生效。
+
+測試結果：
+
+所有實驗結果、log 與相關數據均整理於 result/ 資料夾內。
+包含：
+
+benchmark 執行結果
+
+cache miss rate 數據
+
+write request 數據
+
+policy 效能分析紀錄
