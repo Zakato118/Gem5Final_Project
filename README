@@ -44,3 +44,9 @@ cache miss rate 數據
 write request 數據
 
 policy 效能分析紀錄
+
+m5out_2way與m5out_fullway分別是Q3之2way與fullway的資料
+
+m5out_origin_policy與m5out_frequency_based_policy分別是Q4之兩種policy的資料
+
+m5out_write_back與m5out_write_through分別是Q5之兩種policy的資料
